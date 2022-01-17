@@ -9,3 +9,12 @@ h2{
 h1{
     @apply text-3xl font-bold 
 }
+
+body{
+    @apply antialiased
+}
+
+a {
+    @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600
+ }
+ 

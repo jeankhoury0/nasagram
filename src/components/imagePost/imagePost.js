@@ -29,19 +29,28 @@ export default function ImagePost(props) {
   
      )
      console.log(data)
-
     return(
-        <div className="bg-zinc-400 rounded mx-2">
-            <img src={data.url} className="aspect-square w-fit object-cover"></img>
+        <div className="shadow-md bg-white rounded mx-2 break-inside-avoid">
+            
+            <div className="">
+                {data.media_type == "image" && 
+                    <img src={data.url} className="object-cover aspect-square w-[100%] h-100"></img>
+                }
+                {data.media_type == "video" && 
+                    <iframe src={`${data.url}?autoplay=1&mute=1`} className="object-cover aspect-square w-[100%] h-100" controls autoplay>
+                  </iframe>
+                }                
+            </div>
+                 
             <div className="grid grid-cols-3">
-                <div className="col-span-2 p-1">
+                <div className="col-span-2 p-2">
                     <h2> {data.title}</h2>
                     <p> {data.date} </p>
                 </div>
                 <div className="flex justify-between grow items-stretch">
-                    <button className={`${like.fa} fa-heart text-2xl bg-red-300 grow`} alt="Like the picture" onClick={toogleLike}>
+                    <button className={`${like.fa} fa-heart text-2xl bg-pink-700 text-white grow`} alt="Like the picture" onClick={toogleLike}>
                     </button>
-                    <button className="fas fa-link text-2xl bg-blue-500 grow" alt="Get link to share"></button>
+                    <button className="fas fa-link text-2xl bg-blue-700 text-white grow" alt="Get link to share"></button>
 
                 </div>
                 
