@@ -16,7 +16,7 @@ class IndexPage extends React.Component {
       {
       startDate: "",
       endDate: "",
-      count: "10"
+      count: "24"
     },
       data: []
     }
@@ -30,7 +30,7 @@ class IndexPage extends React.Component {
   API_KEY = "mPPJDe7A3eOPnUtTr8MWWfrWvLdJg8HuhEgVmiAW"
   params= {
     "api_key": this.API_KEY,
-    "count": "10"
+    "count": "24"
   } 
 
 
@@ -57,7 +57,7 @@ class IndexPage extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
      if (prevState.filter !== this.state.filter){
-       if (this.canBeFetche){
+       if (this.canBeFetched()){
         console.log("ENTERD")
           this.params= {
             "api_key": this.API_KEY,
@@ -68,7 +68,7 @@ class IndexPage extends React.Component {
         } else {
           this.params= {
             "api_key": this.API_KEY,
-            "count" : 12
+            "count" : 24
           }
         }
        this.fetchData()
@@ -77,11 +77,31 @@ class IndexPage extends React.Component {
    }
 
    canBeFetched(){
-      let startDate = this.state.filter.startDate
-      let endDate = this.state.filter.endDate
-      let count = this.state.filter.count
+    let startDate = this.state.filter.startDate
+    let endDate = this.state.filter.endDate
+    let count = this.state.filter.count
+    console.log(startDate)
+    if (startDate == "" || endDate == ""){
+        if (count == ""){
+          console.error("Count, Start and end Date cant be empty")
+          return false
+        }
+        return true
+      }
+
+    if (count != ""){
+      console.error("Count is not compatible with date")
       return false
-     
+    }
+
+    if (new Date(startDate) >= new Date(endDate)){
+      console.error("Start date need to be superior to end date")
+      return false
+    }
+
+    return true
+   
+    
    }
   
 
@@ -116,7 +136,7 @@ class IndexPage extends React.Component {
           <h1 className="">Nasagram</h1>
         </div>
         {/* Filter */}
-        <div className="flex flex-col m-3 gap-3 ring-4 ring-black rounded">
+        <div className="flex flex-col m-3 gap-3 ring-4 ring-black rounded overflow-hidden">
           <h2 className="bg-black p-2 text-white">Filters</h2>
           <div>
             <label htmlFor="inputStartDate" className="p-3">Start Date</label>
@@ -128,13 +148,13 @@ class IndexPage extends React.Component {
           </div>
           <div>
             <label htmlFor="inputCount" className="p-3">Count</label>
-            <input type="number" id="inputCount" max="23" ></input>
+            <input type="number" id="inputCount" min="1" max="23" ></input>
           </div>
-          <a onClick={this.setFilters} className="bg-black text-white text-xl text-center">refresh</a>
+          <a onClick={this.setFilters} href="#"  className="bg-black text-white text-xl text-center p-2 hover:bg-primary hover:text-white rounded-b hover:cursor-pointer">refresh</a>
         </div>
         {/* End filter */}
-        <div className="flex self-center items-center" id="root">
-            <div className="columns-xs gap-8 space-y-8 py-2">
+        <div className="flex justify-center items-center" id="root">
+            <div className="columns-1 md:columns-2 lg:columns-4 xl:columns-5 gap-3 space-y-3">
               {loading ? <Loading></Loading> : (
                   data.map(i =>{
                     return <ImagePost key={i.date} data={i}></ImagePost>
