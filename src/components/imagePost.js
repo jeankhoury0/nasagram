@@ -35,7 +35,7 @@ export default function ImagePost(props, key) {
 
             <div className="">
                 {data.media_type === "image" &&
-                    <img src={data.url} alt={data.explanation} className="object-cover aspect-square w-[100%] h-100"></img>
+                    <img src={data.url} alt="" className="object-cover aspect-square w-[100%] h-100"></img>
                 }
                 {data.media_type === "video" &&
                     <iframe src={`${data.url}?autoplay=1&mute=1`} title={data.title} className="aspect-square w-full h-full" controls allow="autoplay" autoPlay>
@@ -55,7 +55,7 @@ export default function ImagePost(props, key) {
                 </div>
                 
                 { url.copied && 
-                    <div className="inset-center bg-gray-600 text-white text-center font-bold p-3 text-l rounded-full">
+                    <div className="inset-center bg-gray-600 text-white text-center font-bold p-3 text-l rounded-full" role="alert">
                         URL copied successfully
                     </div>
                 }
