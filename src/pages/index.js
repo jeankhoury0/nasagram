@@ -1,6 +1,8 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
 
+
+
 import ImagePost from "../components/imagePost/imagePost"
 import Loading from "../components/loading"
 // markup
@@ -78,7 +80,7 @@ class IndexPage extends React.Component {
       filter : {
         startDate: startDate || "",
         endDate: endDate || "",
-        count: inputCount || "23"
+        count: inputCount || ""
       }
     })
   }
