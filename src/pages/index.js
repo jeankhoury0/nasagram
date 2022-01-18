@@ -1,8 +1,17 @@
 import * as React from "react"
-import ImagePost from "../components/imagePost/imagePost"
+import GithubButton from "../components/githubButton"
+import ImagePost from "../components/imagePost"
 import Loading from "../components/loading"
-// markup
+
 class IndexPage extends React.Component {
+  API_URL = new URL("https://api.nasa.gov/planetary/apod")
+  API_KEY = "mPPJDe7A3eOPnUtTr8MWWfrWvLdJg8HuhEgVmiAW"
+  API_DEFAULT_COUNT = 24
+  params = {
+    "api_key": this.API_KEY,
+    "count": this.API_DEFAULT_COUNT
+  }
+
   constructor() {
     super()
     this.state = {
@@ -13,34 +22,23 @@ class IndexPage extends React.Component {
       {
         startDate: "",
         endDate: "",
-        count: "24"
+        count: this.API_DEFAULT_COUNT
       },
       data: []
     }
-
     this.setFilters = this.setFilters.bind(this)
     this.setState = this.setState.bind(this)
 
   }
 
-  URL = new URL("https://api.nasa.gov/planetary/apod")
-  API_KEY = "mPPJDe7A3eOPnUtTr8MWWfrWvLdJg8HuhEgVmiAW"
-  params = {
-    "api_key": this.API_KEY,
-    "count": "24"
-  }
-
-
   async fetchData() {
+    this.API_URL.search = new URLSearchParams(this.params).toString()
 
-    this.URL.search = new URLSearchParams(this.params).toString()
-
-    fetch(this.URL)
+    fetch(this.API_URL)
       .then(res => {
         return res.json()
       })
       .then(json => {
-        console.log(json)
         this.setState({
           data: json,
           loading: false
@@ -56,7 +54,6 @@ class IndexPage extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.filter !== this.state.filter) {
       if (this.canBeFetched()) {
-        console.log("ENTERD")
         this.params = {
           "api_key": this.API_KEY,
           "start_date": this.state.filter.startDate,
@@ -66,11 +63,10 @@ class IndexPage extends React.Component {
       } else {
         this.params = {
           "api_key": this.API_KEY,
-          "count": 24
+          "count": this.API_DEFAULT_COUNT
         }
       }
       this.fetchData()
-
     }
   }
 
@@ -80,7 +76,6 @@ class IndexPage extends React.Component {
     let count = this.state.filter.count
     this.setState({ errorMsg: null })
 
-    console.log(startDate)
     if (startDate === "" || endDate === "") {
       if (count === "") {
         console.error("Either set Start and EndDate or Count")
@@ -110,6 +105,7 @@ class IndexPage extends React.Component {
     var startDate = document.getElementById("inputStartDate").value
     var endDate = document.getElementById("inputEndDate").value
     var inputCount = document.getElementById("inputCount").value
+
     this.setState({
       loading: true,
       filter: {
@@ -126,11 +122,7 @@ class IndexPage extends React.Component {
     return (
       <>
         <main>
-          {/* Github button */}
-          <a className="flex rounded-full bg-violet-500 hover:bg-violet-900 hover:shadow-lg transition-colors delay-100 w-[4em] h-[4em] fixed bottom-3 right-3 items-center justify-center shadow z-20" href="https://github.com/jeankhoury0/nasagram" target="_blank" rel="noreferrer">
-            <p className="fab fa-github px-2 text-white text-5xl" alt="View the project on github"></p>
-          </a>
-          {/* Github button end */}
+          <GithubButton/>
 
           <div className="text-center py-4 bg-white sticky top-0 left-0 right-0 text-2xl">
             <h1 className="">Nasagram</h1>
@@ -158,7 +150,7 @@ class IndexPage extends React.Component {
               </div>
             }
 
-            <button onClick={this.setFilters} className="bg-black text-white text-xl text-center p-2 hover:bg-primary hover:text-white rounded-b hover:cursor-pointer">refresh</button>
+            <button onClick={this.setFilters} className="bg-black text-white text-xl text-center p-2 hover:bg-primary hover:text-white rounded-b hover:cursor-pointer">Refresh</button>
           </div>
           {/* End filter */}
           <div className="flex justify-center items-center" id="root">
@@ -168,7 +160,6 @@ class IndexPage extends React.Component {
                   return <ImagePost key={i.date} data={i}></ImagePost>
                 })
               )}
-
             </div>
           </div>
         </main>

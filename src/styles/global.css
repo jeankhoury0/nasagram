@@ -24,3 +24,11 @@ label {
 input {
   @apply bg-slate-50 text-lg ring-primary border border-black rounded p-1 shadow-md h-[2em] min-w-[10em];
 }
+
+
+.inset-center {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

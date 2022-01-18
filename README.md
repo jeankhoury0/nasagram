@@ -2,7 +2,8 @@
 
 ## About
 
-Frontend for NASA’s [Astronomy Picture of the Day](https://api.nasa.gov#apod) API
+Frontend for NASA’s [Astronomy Picture of the Day](https://api.nasa.gov#apod) API. 
+Note: this is a mobile first experience 
 
 Some Features
 - [x] Loading state while waiting for NASA API to return results
