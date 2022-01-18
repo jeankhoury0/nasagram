@@ -19,11 +19,11 @@ export default function ImagePost(props, key) {
   
      
     return(
-        <div className="shadow-md bg-white rounded-xl mx-2 break-inside-avoid">
+        <div className="shadow-lg bg-white rounded-xl mx-2 break-inside-avoid overflow-hidden">
             
             <div className="">
                 {data.media_type == "image" && 
-                    <img src={data.url} className="object-cover aspect-square w-[100%] h-100"></img>
+                    <img src={data.url} className=" object-cover aspect-square w-[100%] h-100"></img>
                 }
                 {data.media_type == "video" && 
                     <iframe src={`${data.url}?autoplay=1&mute=1`} className="object-cover aspect-square w-[100%] h-100" controls autoPlay>
