@@ -1,8 +1,4 @@
 import * as React from "react"
-import { Helmet } from "react-helmet"
-
-
-
 import ImagePost from "../components/imagePost/imagePost"
 import Loading from "../components/loading"
 // markup
@@ -81,15 +77,15 @@ class IndexPage extends React.Component {
     let endDate = this.state.filter.endDate
     let count = this.state.filter.count
     console.log(startDate)
-    if (startDate == "" || endDate == ""){
-        if (count == ""){
+    if (startDate === "" || endDate === ""){
+        if (count === ""){
           console.error("Count, Start and end Date cant be empty")
           return false
         }
         return true
       }
 
-    if (count != ""){
+    if (count !== ""){
       console.error("Count is not compatible with date")
       return false
     }
@@ -127,7 +123,7 @@ class IndexPage extends React.Component {
       <>
       <main>
       {/* Github button */}
-        <a className="flex rounded-full bg-violet-500 hover:bg-violet-900 hover:shadow-lg transition-colors delay-100 w-[4em] h-[4em] fixed bottom-3 right-3 items-center justify-center shadow z-20"  href="https://github.com/jeankhoury0/nasagram" target="_blank" ref="nofollow">
+        <a className="flex rounded-full bg-violet-500 hover:bg-violet-900 hover:shadow-lg transition-colors delay-100 w-[4em] h-[4em] fixed bottom-3 right-3 items-center justify-center shadow z-20"  href="https://github.com/jeankhoury0/nasagram" target="_blank" rel="noreferrer">
           <li className="fab fa-github px-2 text-white text-5xl" alt="View the project on github"></li>
         </a>
         {/* Github button end */}
@@ -150,7 +146,7 @@ class IndexPage extends React.Component {
             <label htmlFor="inputCount" className="p-3">Count</label>
             <input type="number" id="inputCount" min="1" max="23" ></input>
           </div>
-          <a onClick={this.setFilters} href="#"  className="bg-black text-white text-xl text-center p-2 hover:bg-primary hover:text-white rounded-b hover:cursor-pointer">refresh</a>
+          <button onClick={this.setFilters} href="#"  className="bg-black text-white text-xl text-center p-2 hover:bg-primary hover:text-white rounded-b hover:cursor-pointer">refresh</button>
         </div>
         {/* End filter */}
         <div className="flex justify-center items-center" id="root">

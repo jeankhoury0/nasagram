@@ -9,7 +9,6 @@ export default function Loading(){
                     </svg>
                     <p className="text-3xl my-10"> Lauching 🚀 ...</p>
             </div>
-           
         </div>
     )
 }
