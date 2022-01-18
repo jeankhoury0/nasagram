@@ -2,26 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-h2{
-    @apply text-lg font-bold
+h2 {
+  @apply text-lg font-bold;
 }
 
-h1{
-    @apply text-3xl font-bold 
+h1 {
+  @apply text-3xl font-bold;
 }
 
-body{
-    @apply antialiased
+body {
+  @apply antialiased;
 }
 
 a {
-    @apply text-blue-600 hover:text-blue-800 
- }
+  @apply text-blue-600 hover:text-blue-800;
+}
 
-label{
-    @apply text-lg
+label {
+  @apply text-gray-700 text-sm font-bold mb-2;
 }
-input{
-    @apply bg-slate-50 text-lg ring-primary border border-black rounded p-1
+input {
+  @apply bg-slate-50 text-lg ring-primary border border-black rounded p-1 shadow-md h-[2em] min-w-[10em];
 }
- 
