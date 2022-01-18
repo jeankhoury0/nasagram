@@ -1,7 +1,7 @@
 module.exports = {
     siteMetadata: {
       title: `nasagram`,
-        siteUrl: `https://www.yourdomain.tld`,
+        siteUrl: `https://nasa.jeankhoury.com`,
     },
     plugins: [
       'gatsby-plugin-postcss',

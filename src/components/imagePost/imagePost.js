@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-export default function ImagePost(props) {
+export default function ImagePost(props, key) {
 
     const [like, setLike] = useState({fa: "far"})
 
@@ -18,9 +18,8 @@ export default function ImagePost(props) {
     const data = props.data 
   
      
-     console.log(data)
     return(
-        <div className="shadow-md bg-white rounded mx-2 break-inside-avoid">
+        <div className="shadow-md bg-white rounded-xl mx-2 break-inside-avoid">
             
             <div className="">
                 {data.media_type == "image" && 
