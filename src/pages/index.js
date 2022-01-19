@@ -144,34 +144,31 @@ class IndexPage extends React.Component {
           <div className="text-center py-4 bg-white shadow sticky top-0 left-0 right-0 text-2xl">
             <h1 className="">Nasagram</h1>
           </div>
-          {/* NEW Filter */}
-          <form>
-            <div className="">
-              <h2 className="bg-black p-2 text-white text-center">Filters</h2>
-              {errorMsg &&
-                <div class="text-white font-bold bg-red-600 p-2 text-center">
-                  <p aria-invalid="true">{errorMsg}</p>
-                </div>
-              }
-              <div className="px-3 grid grid-col-1 items-center md:grid-cols-4 gap-3 m-3 mb-6">
-                <div>
-                  <label htmlFor="inputStartDate">Start Date</label> <br />
-                  <input type="date" id="inputStartDate" className="w-full" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
-                </div>
-                <div>
-                  <label htmlFor="inputEndDate">End Date</label><br />
-                  <input type="date" id="inputEndDate" className="w-full" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
-                </div>
-                <div>
-                  <label htmlFor="inputCount">Count</label><br />
-                  <input type="number" id="inputCount" className="w-full" min="1" max="23" ></input>
-                </div>
-                <button onClick={this.setFilters} className="w-1/2 bg-black justify-self-center md:justify-self-end p-3 text-white text-xl text-center  self-stretch rounded hover:bg-primary hover:text-white">Refresh</button>
+          {/* Filters */}
+          <div className="">
+            <h2 className="bg-black p-2 text-white text-center">Filters</h2>
+            {errorMsg &&
+              <div class="text-white font-bold bg-red-600 p-2 text-center">
+                <p aria-invalid="true">{errorMsg}</p>
               </div>
-              <hr className="py-4 mx-5" />
+            }
+            <div className="px-3 grid grid-col-1 items-center md:grid-cols-4 gap-3 m-3 mb-6">
+              <div>
+                <label htmlFor="inputStartDate">Start Date</label> <br />
+                <input type="date" id="inputStartDate" className="w-full" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
+              </div>
+              <div>
+                <label htmlFor="inputEndDate">End Date</label><br />
+                <input type="date" id="inputEndDate" className="w-full" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
+              </div>
+              <div>
+                <label htmlFor="inputCount">Count</label><br />
+                <input type="number" id="inputCount" className="w-full" min="1" max="23" ></input>
+              </div>
+              <button onClick={this.setFilters} className="w-1/2 bg-black justify-self-center md:justify-self-end p-3 text-white text-xl text-center  self-stretch rounded hover:bg-primary hover:text-white">Refresh</button>
             </div>
-          </form>
-
+            <hr className="py-4 mx-5" />
+          </div>
           {/* End filter */}
           <div className="flex justify-center items-center" id="root">
             <div className="columns-1 md:columns-2 lg:columns-4 xl:columns-5 gap-3 space-y-3">
