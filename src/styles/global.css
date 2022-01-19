@@ -22,7 +22,7 @@ label {
   @apply text-gray-700 text-sm font-bold mb-2;
 }
 input {
-  @apply bg-slate-50 text-lg ring-primary border border-black rounded p-1 shadow-md h-[2em] min-w-[10em];
+  @apply bg-slate-50 text-lg ring-primary border border-black rounded p-1 shadow-md;
 }
 
 

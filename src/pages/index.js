@@ -1,4 +1,6 @@
+import { data } from "autoprefixer"
 import * as React from "react"
+import { Helmet } from "react-helmet"
 import GithubButton from "../components/githubButton"
 import ImagePost from "../components/imagePost"
 import Loading from "../components/loading"
@@ -39,6 +41,15 @@ class IndexPage extends React.Component {
         return res.json()
       })
       .then(json => {
+        if (json.code) {
+          console.error("Error while rendering the date")
+          this.setState({
+            loading: false,
+            error: true,
+            errorMsg: "An error occured please try again"
+          })
+          return
+        }
         this.setState({
           data: json,
           loading: false
@@ -78,11 +89,16 @@ class IndexPage extends React.Component {
 
     if (startDate === "" || endDate === "") {
       if (count === "") {
-        console.error("Either set Start and EndDate or Count")
-        this.setState({ errorMsg: "Either set Start and EndDate or Count" })
+        console.warn("Nothing to be sent, just refreshing")
         return false
       }
       return true
+    }
+
+    if (count < 0) {
+      console.error("Count cannot be negative")
+      this.setState({ errorMsg: "Count cannot be negative" })
+      return false
     }
 
     if (count !== "") {
@@ -121,48 +137,56 @@ class IndexPage extends React.Component {
     const { loading, data, errorMsg } = this.state
     return (
       <>
+        <Helmet><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossOrigin="anonymous" referrerPolicy="no-referrer" /></Helmet>
         <main>
-          <GithubButton/>
+          <GithubButton />
 
-          <div className="text-center py-4 bg-white sticky top-0 left-0 right-0 text-2xl">
+          <div className="text-center py-4 bg-white shadow sticky top-0 left-0 right-0 text-2xl">
             <h1 className="">Nasagram</h1>
           </div>
-          {/* Filter */}
-          <div className="flex flex-col m-3 gap-3 ring-4 ring-black rounded overflow-hidden">
-            <h2 className="bg-black p-2 text-white">Filters</h2>
-            <div className="flex flex-col md:[flex-direction:unset] justify-center items-center md:gap-3">
-              <div>
-                <label htmlFor="inputStartDate" className="p-3">Start Date</label> <br />
-                <input type="date" id="inputStartDate" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
+          {/* NEW Filter */}
+          <form>
+            <div className="">
+              <h2 className="bg-black p-2 text-white text-center">Filters</h2>
+              {errorMsg &&
+                <div class="text-white font-bold bg-red-600 p-2 text-center">
+                  <p aria-invalid="true">{errorMsg}</p>
+                </div>
+              }
+              <div className="px-3 grid grid-col-1 items-center md:grid-cols-4 gap-3 m-3 mb-6">
+                <div>
+                  <label htmlFor="inputStartDate">Start Date</label> <br />
+                  <input type="date" id="inputStartDate" className="w-full" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
+                </div>
+                <div>
+                  <label htmlFor="inputEndDate">End Date</label><br />
+                  <input type="date" id="inputEndDate" className="w-full" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
+                </div>
+                <div>
+                  <label htmlFor="inputCount">Count</label><br />
+                  <input type="number" id="inputCount" className="w-full" min="1" max="23" ></input>
+                </div>
+                <button onClick={this.setFilters} className="w-1/2 bg-black justify-self-center md:justify-self-end p-3 text-white text-xl text-center  self-stretch rounded hover:bg-primary hover:text-white">Refresh</button>
               </div>
-              <div>
-                <label htmlFor="inputEndDate" className="p-3">End Date</label><br />
-                <input type="date" id="inputEndDate" min="1995-07-01" max={new Date().toISOString().split("T")[0]}></input>
-              </div>
-              <div>
-                <label htmlFor="inputCount" className="p-3">Count</label><br />
-                <input type="number" id="inputCount" min="1" max="23" ></input>
-              </div>
+              <hr className="py-4 mx-5" />
             </div>
-            {errorMsg &&
-              <div class="text-white font-bold bg-red-600 p-2 text-center">
-                <p aria-invalid="true">{errorMsg}</p>
-              </div>
-            }
+          </form>
 
-            <button onClick={this.setFilters} className="bg-black text-white text-xl text-center p-2 hover:bg-primary hover:text-white rounded-b hover:cursor-pointer">Refresh</button>
-          </div>
           {/* End filter */}
           <div className="flex justify-center items-center" id="root">
             <div className="columns-1 md:columns-2 lg:columns-4 xl:columns-5 gap-3 space-y-3">
               {loading ? <Loading></Loading> : (
-                data.map(i => {
+                data?.map(i => {
                   return <ImagePost key={i.date} data={i}></ImagePost>
                 })
               )}
             </div>
           </div>
         </main>
+        <footer className="m-5 text-center text-gray-800">
+          <hr></hr>
+          <p> © <a href="https://jeankhoury.com">Jean Khoury</a> | All right reserved</p>
+        </footer>
       </>
     )
   }
