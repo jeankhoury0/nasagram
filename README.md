@@ -1,6 +1,6 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1d3a2040-b1a4-4297-bbfa-56b9238a2530/deploy-status)](https://app.netlify.com/sites/sad-kilby-81ebd0/deploys)
 
-# Nasagram
+![Nasagram](https://github.com/jeankhoury0/nasagram/blob/main/src/images/NasagramFrontPage%20(1).png)
 
 ## About
 
